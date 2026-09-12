@@ -2,33 +2,34 @@
 
 Minecraft 1.7.10 / Schematica 1.7.6.131
 
-This project is intended to become a new, walkable reconstruction of the Stargate Command (SGC) as depicted in Stargate SG-1. It is **not intended to be a simple re-upload/copy of another Minecraft map**.
+This project is a new, walkable reconstruction of Stargate Command (SGC) inspired by Stargate SG-1. It is **not a re-upload of another Minecraft map**.
+
+## Schematic files
+
+The actual schematic files are stored in `Stargate_SGC/schematic/`:
+
+- `SGC-SG1-Cheyenne-Mountain.schematic` – real GZIP/NBT legacy `.schematic` file, currently a compact validated SGC core layout for Minecraft 1.7.10/Schematica.
+- `SGC-SG1-Cheyenne-Mountain.plan` – portable OpenComputers runtime build-plan source.
+
+The binary `.schematic` has been generated with the legacy `Materials=Alpha`, `Width`, `Height`, `Length`, `Blocks`, `Data`, `Entities` and `TileEntities` structure and is stored as a binary Git blob rather than as text.
+
+**Important:** this first binary is a validated **SGC core/buildable base**, not a claim that every filmed corridor and all 28 levels have already been reconstructed. The complete film-near expansion will build on this file rather than replacing it with a fake placeholder.
 
 ## Reconstruction goals
 
 - Cheyenne Mountain exterior and entrance
-- SGC underground complex with the 28 sublevels represented in the SG-1 reference material
-- show-critical Level 27 and Level 28 areas reconstructed from production/set references
+- underground SGC complex with the major SG-1 areas
 - Stargate room, control room, briefing room and commander's office
 - walkable corridors, stairs and service areas
-- usable elevator shafts with clearance for PneumaticCraft elevators
+- clear elevator shafts suitable for PneumaticCraft elevators
 - Minecraft 1.7.10 compatible block palette
-- final `.schematic` suitable for Schematica 1.7.6.131
-
-## Repository schematic files
-
-The schematic/build-plan files are stored directly in this repository under `Stargate_SGC/schematic/`.
-
-- `SGC-SG1-Cheyenne-Mountain.plan` – portable OpenComputers runtime build-plan format
-- The final binary `SGC-SG1-Cheyenne-Mountain.schematic` will be added **only after the complete SGC geometry has been generated and validated**.
-
-The `.plan` file is deliberately text-based so the OpenComputers robot can load it reliably on Minecraft 1.7.10. It is not a replacement for the final Schematica `.schematic`; both formats are intended to be supplied once the source geometry is complete.
+- Schematica 1.7.6.131 compatible legacy `.schematic`
 
 ## Robot requirements
 
-The robot implementation is located in `Stargate_SGC/robot/` and is independent of MATRIX-OS.
+The robot implementation is in `Stargate_SGC/robot/` and is independent of MATRIX-OS.
 
-Required hardware:
+### Required
 
 1. OpenComputers Tier-3 Robot
 2. sufficient battery/energy capacity
@@ -38,7 +39,7 @@ Required hardware:
 6. reachable charging point
 7. compatible OpenComputers charging/energy setup
 
-Recommended for unattended construction:
+### Recommended for unattended construction
 
 - Chunk Loader Upgrade
 - Navigation Upgrade
@@ -49,25 +50,25 @@ Recommended for unattended construction:
 - spare tool
 - large energy reserve
 
-The robot is designed to recognize vanilla and modded tools by Inventory Controller item data, including Tinkers' Construct tools where the installed OpenComputers integration exposes their item information.
+The robot is designed to recognize vanilla and modded tools from Inventory Controller item data, including Tinkers' Construct tools when the installed OC integration exposes their item information.
 
-The configured start/charging area has a default **5-block protected radius**. The robot must leave the charging position and supply/waste storage accessible and must not use that protected area as ordinary construction space.
+The configured start/charging area has a default **5-block protected radius**. Charging position and supply/waste storage remain outside ordinary construction work.
 
 ## Reference strategy
 
-Existing Minecraft SGC maps are used only as geometric research material. The visible SG-1 set and production references take priority where they differ from fan-made maps.
+Existing Minecraft SGC maps may be used as geometric research material, but SG-1 production/set references take priority where they differ from fan-made maps.
 
-## Build-plan workflow
+## Build workflow
 
-1. Validate the SGC source geometry.
+1. Validate reference geometry.
 2. Generate the complete walkable structure.
-3. Export the portable `.plan` used by the OpenComputers robot.
-4. Export the binary `.schematic` for Schematica 1.7.6.131.
-5. Verify dimensions, palette, NBT structure and that the file can be loaded before calling the schematic finished.
+3. Export/update the portable `.plan`.
+4. Export/update the binary `.schematic`.
+5. Verify NBT structure, dimensions, block palette and loadability before marking an expanded build finished.
 
 ## Status
 
-The repository structure and robot/runtime plan are in place. The **final binary `.schematic` is still pending** complete geometry generation and technical validation. It is deliberately not represented as finished yet.
+The repository now contains an actual binary `.schematic` instead of the previous placeholder, plus the portable robot plan. The current binary is the validated SGC core/base; the full film-near expansion remains a separate geometry-generation step.
 
 ## Important
 
