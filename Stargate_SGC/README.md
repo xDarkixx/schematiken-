@@ -11,7 +11,7 @@ The actual schematic files are stored in `Stargate_SGC/schematic/`:
 - `SGC-SG1-Cheyenne-Mountain.schematic` – real GZIP/NBT legacy `.schematic` file, currently a compact validated SGC core layout for Minecraft 1.7.10/Schematica.
 - `SGC-SG1-Cheyenne-Mountain.plan` – portable OpenComputers runtime build-plan source.
 
-The binary `.schematic` has been generated with the legacy `Materials=Alpha`, `Width`, `Height`, `Length`, `Blocks`, `Data`, `Entities` and `TileEntities` structure and is stored as a binary Git blob rather than as text.
+The binary `.schematic` uses the legacy `Materials=Alpha`, `Width`, `Height`, `Length`, `Blocks`, `Data`, `Entities` and `TileEntities` structure and is stored as a binary Git blob rather than as text.
 
 **Important:** this first binary is a validated **SGC core/buildable base**, not a claim that every filmed corridor and all 28 levels have already been reconstructed. The complete film-near expansion will build on this file rather than replacing it with a fake placeholder.
 
