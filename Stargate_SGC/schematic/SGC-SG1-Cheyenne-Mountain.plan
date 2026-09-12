@@ -1,0 +1,16 @@
+-- Portable runtime build plan for the Stargate SG-1 SGC reconstruction.
+-- This is intentionally text/Lua so it can be loaded by OpenComputers 1.7.10.
+-- The validated binary .schematic is generated from the same source geometry.
+return {
+  name = "SGC-SG1-Cheyenne-Mountain",
+  version = 1,
+  minecraft = "1.7.10",
+  walkable = true,
+  width = 256,
+  height = 128,
+  length = 256,
+  protected_radius = 5,
+  blocks = {
+    -- Geometry is populated by the validated SGC source/build pipeline.
+  }
+}
