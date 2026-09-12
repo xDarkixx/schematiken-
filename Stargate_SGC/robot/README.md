@@ -2,268 +2,152 @@
 
 Eigenständiger OpenComputers-Bauroboter für Minecraft 1.7.10. **Kein MATRIX-OS.**
 
-Der Roboter ist ausschließlich für das Projekt `Stargate_SGC` im Repository `xDarkixx/schematiken-` vorgesehen.
+## Benötigte Roboter-Komponenten
 
-## 1. Was wird benötigt?
+### Pflicht – damit der Roboter den Bau ausführen kann
 
-### Pflicht
+| Komponente | Anzahl | Zweck |
+|---|---:|---|
+| **OpenComputers Roboter Tier 3** | 1 | Der eigentliche Bauroboter mit maximalem Inventar-/Upgrade-Ausbau |
+| **Tier-3 Akku** | 1+ | Energieversorgung des Roboters; für große Bauabschnitte möglichst hohe Kapazität |
+| **Inventory Controller Upgrade** | 1 | Liest Inventarslots/Itemstacks, erkennt Werkzeuge und unterstützt Werkzeugwechsel |
+| **Werkzeug/Spitzhacke** | 1+ | Zum Abbauen von Blöcken, wenn der Bauplatz vorbereitet werden muss oder Hindernisse entfernt werden müssen |
+| **Baumaterial** | nach Schematic | Alle benötigten Blöcke müssen dem Roboter bzw. der Materialkiste zur Verfügung stehen |
+| **Ladeeinrichtung** | 1 | Fester Ladepunkt, an dem der Roboter zwischen Bauabschnitten Energie nachladen kann |
+| **OpenComputers-Kompatibles Lade-/Versorgungssystem** | 1 | Muss zum verwendeten OC-Setup passen |
 
-- Minecraft **1.7.10**
-- **OpenComputers** für Minecraft 1.7.10
-- 1x **OpenComputers Robot**
-- mindestens ein brauchbarer **Akku** für den Robot
-- genügend RAM für OpenOS und das Builder-Programm
-- ein **Inventory Controller Upgrade** für Werkzeug-/Item-Erkennung und Inventarverwaltung
-- ein **geprüftes Lade-/Charging-System**, damit der Roboter zwischen Bauabschnitten aufladen kann
-- eine **Kiste bzw. ein Container** als Material-/Abfalllager
-- die benötigten Baumaterialien in ausreichender Menge
-- OpenOS auf dem Roboter
+### Sehr empfohlen – für den automatischen Dauerbetrieb
 
-### Sehr empfohlen
+| Komponente | Anzahl | Zweck |
+|---|---:|---|
+| **Chunk Loader Upgrade** | 1 | Hält den Arbeitsbereich geladen, damit der Roboter beim automatischen Bau nicht durch Chunk-Unload stehen bleibt |
+| **Navigation Upgrade** | 1 | Zusätzliche Positions-/Navigationsinformationen für komplexe Bauabläufe |
+| **Geolyzer Upgrade** | 1 | Erkennt Blöcke/Terrain vor dem Roboter und hilft bei Sicherheits- und Plausibilitätsprüfungen |
+| **Wireless Network Card / Modem** | 1 | Fernstatus, Meldungen und optionale Steuerung |
+| **Data Card** | 1 | Optional für zusätzliche lokale Datenverarbeitung; nicht für den Grundbetrieb erforderlich |
 
-- Tier-3-Robot bzw. möglichst leistungsfähige Robot-Hardware
-- große Akku-Kapazität
-- mehrere Akkus als Reserve
-- zusätzliche Inventory-/Storage-Funktionen
-- Navigation/Chunk-/Positionsunterstützung, sofern im verwendeten OpenComputers-Setup verfügbar
-- genügend Inventarslots für verschiedene Baumaterialien
-- ein stabiler, gut zugänglicher Ladepunkt
+## Werkzeugausrüstung
 
-## 2. Werkzeug
+Der Roboter soll **nicht auf eine bestimmte Vanilla-Spitzhacke festgelegt** sein.
 
-Der Roboter benötigt eine für den jeweiligen Block geeignete Spitzhacke bzw. ein geeignetes Werkzeug.
+Geeignet sind unter anderem:
 
-Unterstützt werden sollen insbesondere:
-
-- Vanilla-Spitzhacken
+- Eisen-Spitzhacke
+- Diamant-Spitzhacke
+- Netherite-Spitzhacke, falls durch das verwendete Modpack vorhanden
 - modded Spitzhacken
-- Tinkers' Construct-Werkzeuge
-- Werkzeuge mit anderem Namen, z. B. Pickaxe, Hammer, Excavator, Mattock oder vergleichbare Werkzeuge
-- unterschiedliche Materialien und Werkzeugtypen
+- Tinkers' Construct Pickaxe
+- Tinkers' Construct Hammer/Mattock/Excavator, sofern vom verwendeten Setup als Itemstack erkannt
+- andere Werkzeuge, die OpenComputers über den Inventory Controller erkennen kann
 
-Die Auswahl erfolgt nach den Informationen, die OpenComputers über den Inventory Controller zur Verfügung stellt. Eine 100%-Garantie für jedes beliebige Mod-Werkzeug ist nur möglich, wenn OpenComputers das betreffende Item korrekt als Itemstack bereitstellt.
+Für die Werkzeugerkennung werden Itemname/Label und die vom Inventory Controller gelieferten Itemdaten verwendet. Dadurch kann der Roboter das vorhandene Werkzeug auswählen, ohne eine einzige feste Pickaxe-ID vorauszusetzen.
 
-**Empfehlung:** Slot 1 bleibt als Hauptwerkzeug reserviert.
+## Material- und Abfalllager
 
-## 3. Materiallager
-
-Der Roboter braucht einen festen Container in der Nähe des Start-/Ladebereichs.
-
-Der Container dient für:
-
-- Baumaterial
-- zusätzliche Werkzeuge
-- Ersatzwerkzeuge
-- überschüssige Items
-- Abfall/Müll
-- Wiederaufnahme nach einem Neustart
-
-Der Roboter soll nicht einfach sein Inventar volllaufen lassen. Wenn Slots knapp werden, müssen überschüssige bzw. nicht benötigte Items in den vorgesehenen Container ausgelagert werden.
-
-## 4. Ladepunkt
-
-Der Start- und Ladepunkt muss dauerhaft erreichbar sein.
-
-Standardmäßig wird ein **Schutzradius von 5 Blöcken** verwendet.
-
-Innerhalb dieses Bereichs darf der Builder keine normalen Baublöcke platzieren oder unnötig abbauen.
-
-Der Bereich soll enthalten:
-
-- Roboter-Startposition
-- Charging Point
-- Materialkiste/Container
-- ausreichend freie Bewegungsfläche
-
-Der Ladepunkt darf nicht durch die SGC-Schematic zugemauert werden.
-
-## 5. Platzierung des Roboters
-
-Vor dem ersten Start:
-
-1. Roboter an den vorgesehenen Startpunkt stellen.
-2. Ladepunkt anschließen bzw. funktionierende Energieversorgung sicherstellen.
-3. Materialcontainer erreichbar aufstellen.
-4. Roboter mit Werkzeug und Baumaterial bestücken.
-5. OpenOS starten.
-6. Bauplan auf den Roboter übertragen.
-7. Konfiguration prüfen.
-8. Erst danach den Builder starten.
-
-Der Startpunkt sollte möglichst außerhalb des eigentlichen SGC-Bauvolumens liegen.
-
-## 6. Inventar-Empfehlung
-
-Empfohlene Aufteilung:
-
-| Slot | Zweck |
-|---|---|
-| 1 | Hauptwerkzeug / Spitzhacke |
-| 2+ | Baumaterial |
-| reservierte Slots | Ersatzwerkzeug / Spezialwerkzeuge |
-| übrige Slots | Material und temporäre Items |
-
-Der Roboter darf den reservierten Werkzeug-Slot nicht versehentlich für normales Baumaterial verwenden.
-
-## 7. Energie
-
-Bei großen SGC-Bauten ist ein einzelner kleiner Akku nicht ausreichend zuverlässig.
+Zusätzlich zum Roboter selbst wird **mindestens eine Material-/Versorgungskiste** am Start-/Versorgungspunkt benötigt.
 
 Empfohlen:
 
-- großer Akku
-- dauerhaft erreichbarer Charging Point
-- Ladepunkt außerhalb des Bauvolumens
-- gespeicherte Position des Ladepunkts
-- automatische Rückkehr zum Ladepunkt bei niedrigem Energiezustand
-- anschließende Fortsetzung an der letzten gespeicherten Position
+- 1 Kiste/Container für Baumaterial
+- 1 Kiste/Container für Abfall und nicht benötigte Items
+- optional getrennte Kisten für häufig benötigte Blockgruppen
 
-Der Baufortschritt wird gespeichert, damit ein Stromausfall oder Neustart nicht den kompletten Bau zurücksetzt.
+Der Roboter soll sein Inventar regelmäßig leeren bzw. Material nachfüllen, damit der Bau nicht wegen eines vollen Inventars stoppt.
 
-## 8. Schematic / Bauplan
+## Start- und Ladepunkt
 
-Als Quellformate sind vorgesehen:
+Der Ladepunkt muss dauerhaft erreichbar sein.
 
-- `.schematic`
-- `.schem`
-- weitere Formate über zusätzliche Konverter/Loader
+Der Bereich um die konfigurierte Startposition wird standardmäßig mit einem **Radius von 5 Blöcken geschützt**. Dort darf der Roboter keine normalen Bauarbeiten ausführen. Dadurch bleiben Ladeposition, Rückkehrweg und Versorgungskisten frei.
 
-Der Roboter selbst verwendet für den eigentlichen Bau einen validierten, portablen `.plan`-Datensatz.
-
-Grund:
-
-Die klassischen `.schematic`-Dateien enthalten häufig binäre NBT-Daten und können zusätzlich komprimiert sein. OpenComputers 1.7.10 stellt nicht auf jeder Installation dieselbe NBT-/GZIP-Laufzeitumgebung bereit.
-
-Deshalb wird empfohlen:
-
-`schematic/schem/OBJ/sonstiges -> Konverter -> validierter .plan -> Robot`
-
-Der `.plan` enthält unter anderem:
-
-- Abmessungen
-- Zielkoordinaten
-- Standposition des Roboters
-- Blickrichtung
-- benötigten Slot
-- Schutzbereiche
-- Bau-Reihenfolge
-
-## 9. SGC-spezifische Anforderungen
-
-Für die geplante Stargate-SG-1-SGC-Rekonstruktion muss der Bauplan insbesondere berücksichtigen:
-
-- begehbare Räume
-- begehbare Korridore
-- Treppen
-- Türen und Durchgänge
-- Stargate-Raum
-- Control Room
-- Briefing Room
-- Commander's Office
-- Servicebereiche
-- Aufzugsschächte
-- freie PneumaticCraft-Aufzugsbereiche
-- keine zugemauerten Durchgänge
-- definierte Wartungs-/Serviceflächen
-- geschützten Robotik-/Ladebereich
-
-Der Bauplan wird **bottom-to-top** verarbeitet, damit Fundamente und untere Ebenen zuerst entstehen.
-
-## 10. Was der Roboter automatisch erledigen soll
-
-Der fertige Builder soll:
-
-- Bauplan laden
-- Bauplan validieren
-- Ebenen von unten nach oben bauen
-- geeignete Werkzeuge auswählen
-- modded Werkzeuge erkennen
-- Tinkers-Werkzeuge erkennen, sofern als Itemstack verfügbar
-- Materialbestand prüfen
-- Material aus dem Container holen
-- volle Inventarslots erkennen
-- überschüssige Items auslagern
-- Ladepunkt freihalten
-- Schutzradius von 5 Blöcken einhalten
-- Baufortschritt speichern
-- nach Neustart fortsetzen
-- bei Fehlern nicht blind weiterbauen
-- blockierte Wege erkennen
-- fehlendes Material melden
-- Werkzeugverschleiß erkennen, soweit die OpenComputers-API dies liefert
-- bei niedrigem Akku zum Ladepunkt zurückkehren
-- nach dem Laden automatisch fortsetzen
-
-## 11. Was nicht versprochen wird
-
-Der Builder darf nicht so programmiert werden, dass er unbekannte Mod-Blöcke oder unbekannte Werkzeuge einfach errät und dadurch die Welt beschädigt.
-
-Insbesondere gilt:
-
-- unbekannte Block-ID -> Fehler/Mapping erforderlich
-- unbekanntes Werkzeug -> Werkzeugprüfung
-- nicht erreichbarer Block -> Bau pausieren
-- fehlendes Material -> Materialanforderung
-- Ladepunkt nicht erreichbar -> Bau pausieren
-- ungültiger Bauplan -> nicht starten
-
-## 12. Empfohlene Ordnerstruktur auf dem Roboter
+Empfohlene Anordnung:
 
 ```text
-/home/sgc/
-├── sgc-builder.lua
-├── schematic.lua
-├── navigation.lua
-├── inventory.lua
-├── recovery.lua
-├── config.cfg
-├── SGC-SG1-Cheyenne-Mountain.plan
-├── build-progress.cfg
-├── blocks.cfg
-└── logs/
+          Arbeitsbereich
+               ↓
+        ┌───────────────┐
+        │               │
+        │   SGC-Bau     │
+        │               │
+        └───────┬───────┘
+                │
+        5 Block Schutzbereich
+                │
+        [Ladepunkt/Roboter]
+        [Materialkiste]
+        [Abfallkiste]
 ```
 
-## 13. Konfiguration
+## Inventar des Roboters
 
-Die wichtigsten Einstellungen befinden sich in `config.cfg`.
+**Slot 1** bleibt standardmäßig für das Hauptwerkzeug reserviert.
 
-Dort werden unter anderem festgelegt:
+Die übrigen Slots können für Baumaterial verwendet werden. Der Builder darf reservierte Werkzeug-/Systemslots nicht ungefragt als normalen Materialspeicher verwenden.
 
-- Bauplanpfad
-- Fortschrittsdatei
-- Startposition
-- Schutzradius
-- reservierte Slots
-- Bewegungsversuche
-- Platzierungsversuche
-- Lade-/Materialposition
+Für große SGC-Bauten ist deshalb ein externes Materiallager sinnvoller als ausschließlich das Roboterinventar.
 
-## 14. Vor dem ersten echten Bau
+## Was wirklich nötig ist
 
-Vor dem vollständigen SGC-Bau sollte zuerst ein kleiner Testbereich gebaut werden.
+Wenn du nur testen möchtest, ob der Roboter grundsätzlich bauen kann, reicht:
 
-Testen:
+1. Tier-3 Roboter
+2. ausreichend Akku/Energie
+3. Inventory Controller Upgrade
+4. mindestens ein passendes Werkzeug
+5. die benötigten Baumaterialien
+6. ein erreichbarer Ladepunkt
+7. ein vorbereiteter Bauplan
 
-- Vorwärts-/Rückwärtsbewegung
-- Drehen
-- Platzieren
-- Abbauen
-- Werkzeugerkennung
-- Inventarverwaltung
-- Container ein-/auslagern
-- Akku/Laden
-- Fortschritt speichern
-- Neustart und Resume
-- Schutzradius
+Für den **vollautomatischen SGC-Dauerbau** empfehle ich zusätzlich:
 
-Erst wenn diese Tests erfolgreich sind, sollte der Roboter auf die komplette SGC-Rekonstruktion losgelassen werden.
+1. Chunk Loader Upgrade
+2. Navigation Upgrade
+3. Geolyzer Upgrade
+4. Wireless Network Card/Modem
+5. Materialkiste
+6. Abfallkiste
+7. Ersatzwerkzeug
+8. große Energiereserve
 
-## 15. Wichtiger Hinweis zur finalen SGC-Schematic
+## Was nicht zwingend benötigt wird
 
-Die filmnahe SGC-Schematic wird nicht als fertig bezeichnet, solange die Geometrie, Ebenen, Räume, Aufzugsschächte, Durchgänge und die technische Binärdatei nicht geprüft wurden.
+Nicht erforderlich für den Grundbetrieb sind beispielsweise:
 
-Es wird ausdrücklich keine leere, erfundene oder beschädigte `.schematic` als fertige SGC-Datei in das Repository gelegt.
+- MATRIX-OS
+- ein zweiter Computer
+- ein Monitor am Roboter
+- eine Tastatur am Roboter
+- eine Internetverbindung
+- ein bestimmtes Pickaxe-Modell
 
-## Status
+Der Roboter läuft als eigenständiger OpenComputers-Bauroboter.
 
-Der Roboter ist als eigenständiges OpenComputers-Projekt angelegt. Die Hardware- und Betriebsanforderungen sind hier vollständig dokumentiert; die finale SGC-Binär-Schematic bleibt an die vorherige Geometrie-/Dateiprüfung gebunden.
+## Aktueller Softwareaufbau
+
+- `sgc-builder.lua` – Hauptprogramm, Resume/Progress und Bauablauf
+- `schematic.lua` – validiert den portablen `.plan`-Bauplan
+- `navigation.lua` – Positions- und Richtungsverwaltung
+- `inventory.lua` – Inventar, Materialsuche und Pick-/Tool-Erkennung
+- `recovery.lua` – Neustart-/Abbruchfortsetzung
+- `config.cfg` – Schutzradius, Slots und Pfade
+
+## Bauplanformat
+
+Der Roboter erwartet einen validierten Lua-Bauplan, z. B. `/home/sgc/SGC-SG1-Cheyenne-Mountain.plan`, der mit `return { ... }` eine Tabelle liefert.
+
+```lua
+return {
+  width = 10, height = 5, length = 10,
+  blocks = {
+    {x = 6, y = 1, z = 0, sx = 5, sy = 1, sz = 0, face = 0, slot = 2},
+  }
+}
+```
+
+`x/y/z` beschreiben das Zielblockvolumen. `sx/sy/sz` und `face` werden vom Plan-Compiler verwendet, damit der Roboter einen Block von einer erreichbaren Seite setzen kann.
+
+## Schematic-Unterstützung
+
+Das Repository kann `.schematic`/`.schem` als Quellformat verwenden. Die Binär-NBT-/GZIP-Konvertierung sollte vor dem Robotereinsatz in den portablen `.plan`-Datensatz erfolgen, weil OpenComputers 1.7.10 nicht auf jeder Installation dieselbe GZIP/NBT-Laufzeitbibliothek bereitstellt.
+
+Die finale filmnahe SGC-Schematic wird **nicht erfunden oder als fertig bezeichnet**, solange die Referenzgeometrie nicht validiert und die Binärdatei technisch geprüft wurde.
